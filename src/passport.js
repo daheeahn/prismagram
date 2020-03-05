@@ -34,4 +34,19 @@ const verifyUser = async (payload, done) => {
   }
 };
 
+// 미들웨어 함수야. passport는 쿠키와 세션 작업하기 좋아. 쿠키를 가져오고 만들어주고 모든 일을 한다.
+// passport에 어떤 것도 입력되지 않기를 원해서 session을 false로
+// passportrk 함수에 사용자 정보를 전달해줄거야.
+// verifyUser에서 사용자를 받아온 후에, 사용자가 존재한다면 그 사용자 정보를 req 객체에 붙여주는거야.
+export const authenticateJwt = (req, res, next) =>
+  passport.authenticate("jwt", { session: false }, (error, user) => {
+    if (user) {
+      req.user = user;
+    }
+    next();
+    // express에서는 미들웨어를 지나서 라우트가 실행돼. 토큰을 받아서 해석,사용자찾고 사용자 존재하면 req객체에 사용자 추가하고 나면 graphql 함수를 실행하는거야.
+    // 로그인 되어 있다면 모든 gql 요청에 사용자 정보가 추가되어서 요청되는거지.
+  })(req, res, next); // 함수가 리턴되는거야. Fn(req, res, next) 인거야. 이경우에는 실행해야 하는 함수가 gql 함수래. (?)
+
 passport.use(new Strategy(jwtOpts, verifyUser));
+passport.initialize();

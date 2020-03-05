@@ -1,12 +1,10 @@
+import "./env";
+
 import { adjectives, nouns } from "./words";
 
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
-import path from "path";
 import sgTransport from "nodemailer-sendgrid-transport";
-
-dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 export const generateSecret = () => {
   const randomNum = Math.floor(Math.random() * adjectives.length);

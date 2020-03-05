@@ -4,10 +4,12 @@ import { prisma } from "../../../../generated/prisma-client";
 
 export default {
   Mutation: {
-    requestSecret: async (_, { email }) => {
+    requestSecret: async (_, { email }, { request }) => {
+      console.log(request);
       const loginSecret = generateSecret();
       console.log("loginSecret", loginSecret);
       try {
+        throw Error();
         await sendSecretMail(email, loginSecret);
         await prisma.updateUser({ data: { loginSecret }, where: { email } });
         return true;
