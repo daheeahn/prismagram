@@ -1,8 +1,18 @@
 require("dotenv").config(); // 여기서 포트 읽어오도록 할 수 있어/ .env 파일에 PORT를 추가하면 돼
 
 import { GraphQLServer } from "graphql-yoga";
+import dotenv from "dotenv";
 import logger from "morgan";
+import path from "path";
 import schema from "./schema";
+import { sendSecretMail } from "./utils";
+
+sendSecretMail("deg9810@gmail.com", "123");
+
+dotenv.config({ path: path.resolve(__dirname, ".env") });
+console.log("💞");
+console.log(__dirname);
+console.log(process.env.PORT);
 
 const PORT = process.env.PORT || 4000;
 
