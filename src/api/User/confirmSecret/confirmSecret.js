@@ -1,3 +1,4 @@
+import { generateToken } from "../../../utils";
 import { prisma } from "../../../../generated/prisma-client";
 
 export default {
@@ -6,7 +7,7 @@ export default {
       const user = await prisma.user({ email });
       if (user.loginSecret === secret) {
         // return JWT token
-        return "TOKEN";
+        return generateToken(user.id); // jwt가 id를 암호화해서 토큰을 만들어줘!
       } else {
         throw Error("Wrong email, secret combination");
       }

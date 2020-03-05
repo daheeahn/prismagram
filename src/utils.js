@@ -1,6 +1,7 @@
 import { adjectives, nouns } from "./words";
 
 import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import path from "path";
 import sgTransport from "nodemailer-sendgrid-transport";
@@ -37,3 +38,5 @@ export const sendSecretMail = (address, secret) => {
   };
   return sendMail(email);
 };
+
+export const generateToken = id => jwt.sign({ id }, process.env.JWT_SECRET); // 암호화, 해독 같은 암호키 사용 한다.
