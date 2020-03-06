@@ -6,16 +6,16 @@ export default {
     toggleLike: async (_, { postId }, { request }) => {
       isAuthenticated(request);
       const { user } = request;
+      const filterOpts = {
+        AND: [{ user: { id: user.id } }, { post: { id: postId } }]
+      };
       try {
-        const existingLike = await prisma.$exists.like({
-          // boolean을 뱉음
-          AND: [{ user: { id: user.id } }, { post: { id: postId } }]
-        });
+        const existingLike = await prisma.$exists.like(filterOpts);
         if (existingLike) {
           // 좋아요가 이미 존재하면
-          // TODO:
+          await prisma.deleteManyLikes(filterOpts);
         } else {
-          const newLike = await prisma.createLike({
+          await prisma.createLike({
             user: { connect: { id: user.id } },
             post: { connect: { id: postId } }
           }); // create disconnect connect 있다
