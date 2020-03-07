@@ -14,5 +14,11 @@ export default {
       }
     },
     isSelf: ({ id: parentId }, _, { request: { user } }) => user.id === parentId
+  },
+  Post: {
+    isLiked: async ({ id }, _, { request: { user } }) =>
+      prisma.$exists.like({
+        AND: [{ user: { id: user.id } }, { post: { id } }]
+      })
   }
 };
