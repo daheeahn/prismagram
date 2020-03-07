@@ -5,6 +5,7 @@ import "./env";
 
 import { GraphQLServer } from "graphql-yoga";
 import { authenticateJwt } from "./passport";
+import { isAuthenticated } from "./middlewares";
 import logger from "morgan";
 import passport from "passport";
 import schema from "./schema";
@@ -17,7 +18,7 @@ const PORT = process.env.PORT || 4000;
 
 const server = new GraphQLServer({
   schema,
-  context: ({ request }) => ({ request })
+  context: ({ request }) => ({ request, isAuthenticated })
 });
 
 // express 서버에 접근. logger 미들웨어를 사용하도록 할거야. 사실은 모건 모듈이지.
