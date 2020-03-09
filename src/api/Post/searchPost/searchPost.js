@@ -5,7 +5,7 @@ export default {
     searchPost: async (_, { term }) =>
       prisma.posts({
         where: {
-          OR: [{ locations_starts_with: term }, { caption_starts_with: term }]
+          OR: [{ location_starts_with: term }, { caption_starts_with: term }]
         }
       })
   }
