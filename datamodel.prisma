@@ -12,6 +12,8 @@ type User {
   comments: [Comment!]!
   rooms: [Room!]!
   loginSecret: String! @default(value: "")
+  createdAt: String
+  updatedAt: String
 }
 
 type Post {
@@ -22,12 +24,16 @@ type Post {
   files: [File!]!
   likes: [Like!]!
   comments: [Comment!]!
+  createdAt: String
+  updatedAt: String
 }
 
 type Like {
   id: ID! @id
   user: User!
   post: Post!
+  createdAt: String
+  updatedAt: String
 }
 
 type Comment {
@@ -35,18 +41,24 @@ type Comment {
   text: String!
   user: User!
   post: Post!
+  createdAt: String
+  updatedAt: String
 }
 
 type File {
   id: ID! @id
   url: String!
   post: Post!
+  createdAt: String
+  updatedAt: String
 }
 
 type Room {
   id: ID! @id
   participants: [User!]!
   messages: [Message!]!
+  createdAt: String
+  updatedAt: String
 }
 
 type Message {
@@ -55,4 +67,6 @@ type Message {
   from: User! @relation(name: "From")
   to: User! @relation(name: "To")
   room: Room!
+  createdAt: String
+  updatedAt: String
 }
