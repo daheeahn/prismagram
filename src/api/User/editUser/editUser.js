@@ -6,11 +6,11 @@ export default {
       // isAuth~ 여기서~~~~~~
       isAuthenticated(request);
       // 이걸 context에 넣어도 됨!
-      const { username, email, firstName, lastName, bio } = args;
+      const { username, email, firstName, lastName, bio, avartar } = args;
       const { user } = request;
       return prisma.updateUser({
         where: { id: user.id },
-        data: { username, email, firstName, lastName, bio }
+        data: { username, email, firstName, lastName, bio, avartar }
       });
       // return이 마지막 statement라 서버에서 이 promise가 자동으로 resolve 돼서 브라우저에게 결과를 전달하길 기다려주거든. 이래도 괜찮아.
     }
