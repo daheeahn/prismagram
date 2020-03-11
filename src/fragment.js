@@ -18,27 +18,6 @@ export const FILE_FRAGMENT = `
     url
 `;
 
-// likes는 필요하면 넣기
-// prisma에 있는게 아닌 isLiked likeCount 같은건 넣으면 안돼,
-export const FULL_POST_FRAGMENT = `
-    fragment PostParts on Post {
-        id
-        location
-        caption
-        user {
-            ${USER_FRAGMENT}
-        }
-        files {
-            ${FILE_FRAGMENT}
-        }
-        comments {
-            ${COMMENT_FRAGMENT}
-        }
-        createdAt
-        updatedAt
-    }
-`;
-
 export const MESSAGE_FRAGMENT = `
     id
     text
