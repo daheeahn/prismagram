@@ -5,6 +5,7 @@ export default {
   Mutation: {
     confirmSecret: async (_, { email, secret }) => {
       const user = await prisma.user({ email });
+      console.log("비교", user.loginSecret, secret);
       if (user.loginSecret === secret) {
         // return JWT token
         await prisma.updateUser({
