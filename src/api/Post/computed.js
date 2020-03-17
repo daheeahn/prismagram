@@ -6,13 +6,18 @@ export default {
       prisma.$exists.like({
         AND: [{ user: { id: user.id } }, { post: { id } }]
       }),
-    likeCount: parent =>
+    likeCount: ({ id }) =>
       prisma
-        .likesConnection({ where: { post: { id: parent.id } } })
+        .likesConnection({ where: { post: { id } } })
         .aggregate()
         .count(),
     files: ({ id }) => prisma.post({ id }).files(),
     comments: ({ id }) => prisma.post({ id }).comments(),
+    commentCount: ({ id }) =>
+      prisma
+        .commentsConnection({ where: { post: { id } } })
+        .aggregate()
+        .count(),
     user: ({ id }) => prisma.post({ id }).user()
   }
 };
