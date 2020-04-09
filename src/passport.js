@@ -40,6 +40,7 @@ const verifyUser = async (payload, done) => {
 // verifyUser에서 사용자를 받아온 후에, 사용자가 존재한다면 그 사용자 정보를 req 객체에 붙여주는거야.
 export const authenticateJwt = (req, res, next) =>
   passport.authenticate("jwt", { session: false }, (error, user) => {
+    console.log("👚", user);
     if (user) {
       req.user = user;
     }
